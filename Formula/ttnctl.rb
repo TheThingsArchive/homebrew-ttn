@@ -7,6 +7,12 @@ class Ttnctl < Formula
   sha256 "94744bf5bad338fe7f80cb78cd2ab461c89ea65255f400eb674fa7a8b59a162d"
   head "https://github.com/TheThingsNetwork/ttn.git"
 
+  bottle do
+    cellar :any_skip_relocation
+    sha256 "e91a49ad5fbd7c9ade5f13665991f444c5730dddbc797ea9cdba1a5a5ffe893f" => :sierra
+    root_url "https://ttnreleases.blob.core.windows.net/bottles"
+  end
+
   depends_on "go" => :build
 
   go_resource "github.com/kardianos/govendor" do
