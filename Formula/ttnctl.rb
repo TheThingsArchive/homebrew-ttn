@@ -3,13 +3,13 @@ require "language/go"
 class Ttnctl < Formula
   desc "Command-line interface to The Things Network"
   homepage "https://www.thethingsnetwork.org/docs/network/cli/"
-  url "https://github.com/TheThingsNetwork/ttn/archive/v2.7.1.tar.gz"
-  sha256 "94744bf5bad338fe7f80cb78cd2ab461c89ea65255f400eb674fa7a8b59a162d"
+  url "https://github.com/TheThingsNetwork/ttn/archive/v2.8.0.tar.gz"
+  sha256 "31d71107d172c9903928b52d3c0fdf118fe39a3f9f87f3a4c798db53d85c69b0"
   head "https://github.com/TheThingsNetwork/ttn.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "e91a49ad5fbd7c9ade5f13665991f444c5730dddbc797ea9cdba1a5a5ffe893f" => :sierra
+    sha256 "b0d8eb896a610d30ebe5a3d377369038fa3b7121555a6b2e15d43e1277f6bea2" => :sierra
     root_url "https://ttnreleases.blob.core.windows.net/bottles"
   end
 
@@ -23,7 +23,7 @@ class Ttnctl < Formula
     url "https://github.com/StackExchange/wmi.git", :revision => "ea383cf3ba6ec950874b8486cd72356d007c768f"
   end
   go_resource "github.com/TheThingsNetwork/go-account-lib" do
-    url "https://github.com/TheThingsNetwork/go-account-lib.git", :revision => "c3634eb20045e94abd340fac873c3be17e506e36"
+    url "https://github.com/TheThingsNetwork/go-account-lib.git", :revision => "19b357898a9bd97e2524230ada193653c2bcd283"
   end
   go_resource "github.com/TheThingsNetwork/go-cayenne-lib" do
     url "https://github.com/TheThingsNetwork/go-cayenne-lib.git", :revision => "b93f1e68bb8083a2b95c7149fe3b51fc595a717f"
@@ -42,9 +42,6 @@ class Ttnctl < Formula
   end
   go_resource "github.com/brocaar/lorawan" do
     url "https://github.com/brocaar/lorawan.git", :revision => "c61721fa96c85c25ea7ba635fc477224344ddbe3"
-  end
-  go_resource "github.com/cpuguy83/go-md2man" do
-    url "https://github.com/cpuguy83/go-md2man.git", :revision => "23709d0847197db6021a51fdb193e66e9222d4e7"
   end
   go_resource "github.com/dgrijalva/jwt-go" do
     url "https://github.com/dgrijalva/jwt-go.git", :revision => "6c8dedd55f8a2e41f605de6d5d66e51ed1f299fc"
@@ -127,17 +124,11 @@ class Ttnctl < Formula
   go_resource "github.com/robertkrimen/otto" do
     url "https://github.com/htdvisser/otto.git", :revision => "4c9f00e2ef7b56d46b9c699c30b94ad93f348dae"
   end
-  go_resource "github.com/russross/blackfriday" do
-    url "https://github.com/russross/blackfriday.git", :revision => "067529f716f4c3f5e37c8c95ddd59df1007290ae"
-  end
   go_resource "github.com/shirou/gopsutil" do
-    url "https://github.com/shirou/gopsutil.git", :revision => "b6da2bd76e7d66a228181f7993265cf859d5351f"
+    url "https://github.com/shirou/gopsutil.git", :revision => "3dd8bd46d9a1ccbd37b3ba6e3dc1dc7d37ba8dc5"
   end
   go_resource "github.com/shirou/w32" do
     url "https://github.com/shirou/w32.git", :revision => "bb4de0191aa41b5507caa14b0650cdbddcd9280b"
-  end
-  go_resource "github.com/shurcooL/sanitized_anchor_name" do
-    url "https://github.com/shurcooL/sanitized_anchor_name.git", :revision => "541ff5ee47f1dddf6a5281af78307d921524bcb5"
   end
   go_resource "github.com/smartystreets/assertions" do
     url "https://github.com/smartystreets/assertions.git", :revision => "f8459f92181409546d2762c9e9c4bedc23c92d76"
@@ -152,7 +143,7 @@ class Ttnctl < Formula
     url "https://github.com/spf13/cast.git", :revision => "acbeb36b902d72a7a4c18e8f3241075e7ab763e4"
   end
   go_resource "github.com/spf13/cobra" do
-    url "https://github.com/spf13/cobra.git", :revision => "31694f19adeeaeb0a0e5fe95441b390d757753d2"
+    url "https://github.com/spf13/cobra.git", :revision => "4cdb38c072b86bf795d2c81de50784d9fdd6eb77"
   end
   go_resource "github.com/spf13/jwalterweatherman" do
     url "https://github.com/spf13/jwalterweatherman.git", :revision => "8f07c835e5cc1450c082fe3a439cf87b0cbb2d99"
@@ -223,7 +214,7 @@ class Ttnctl < Formula
       ENV["PWD"] = buildpath/"src/github.com/TheThingsNetwork/ttn"              # govendor is easily confused
       system "bin/govendor", "sync"                                             # make sure the vendors are exactly as in vendor.json
 
-      ldflags = "-w -X main.version=v2.7.1 -X main.gitBranch= -X main.gitCommit=homebrew -X main.buildDate=#{Time.now.utc.strftime "%Y-%m-%dT%H:%M:%SZ"}"
+      ldflags = "-w -X main.version=v2.8.0 -X main.gitBranch= -X main.gitCommit=homebrew -X main.buildDate=#{Time.now.utc.strftime "%Y-%m-%dT%H:%M:%SZ"}"
       system "go", "build", "-a", "-installsuffix", "cgo", "-tags", "homebrew prod", "-ldflags", ldflags, "-o", "bin/ttnctl", "./ttnctl/main.go"
     end
 
