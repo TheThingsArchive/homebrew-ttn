@@ -3,24 +3,27 @@ require "language/go"
 class Ttnctl < Formula
   desc "Command-line interface to The Things Network"
   homepage "https://www.thethingsnetwork.org/docs/network/cli/"
-  url "https://github.com/TheThingsNetwork/ttn/archive/v2.8.0.tar.gz"
-  sha256 "31d71107d172c9903928b52d3c0fdf118fe39a3f9f87f3a4c798db53d85c69b0"
+  url "https://github.com/TheThingsNetwork/ttn/archive/v2.8.1.tar.gz"
+  sha256 "bfdec90601e6c9ba0ac6136c4992008d8d0e90254eeb8ca9c17c69dca955fdcf"
   head "https://github.com/TheThingsNetwork/ttn.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "b0d8eb896a610d30ebe5a3d377369038fa3b7121555a6b2e15d43e1277f6bea2" => :sierra
+    sha256 "60b03d8432b83e8be5691063b12684c00dd6f4984f62a6ff9b5313e3b5bea51a" => :sierra
     root_url "https://ttnreleases.blob.core.windows.net/bottles"
   end
 
   depends_on "go" => :build
 
   go_resource "github.com/kardianos/govendor" do
-    url "https://github.com/kardianos/govendor.git", :revision => "c86c10d612bf08e847456ce91d495eb69ad87087"
+    url "https://github.com/kardianos/govendor.git", :revision => "f8a66f62b0844567ea26b61c63901644d07ffb23"
   end
 
   go_resource "github.com/StackExchange/wmi" do
     url "https://github.com/StackExchange/wmi.git", :revision => "ea383cf3ba6ec950874b8486cd72356d007c768f"
+  end
+  go_resource "github.com/TheThingsNetwork/api" do
+    url "https://github.com/TheThingsNetwork/api.git", :revision => "9a65b2ca0dd7147797bcb3f8c931c6c6d6bdfe60"
   end
   go_resource "github.com/TheThingsNetwork/go-account-lib" do
     url "https://github.com/TheThingsNetwork/go-account-lib.git", :revision => "19b357898a9bd97e2524230ada193653c2bcd283"
@@ -29,7 +32,7 @@ class Ttnctl < Formula
     url "https://github.com/TheThingsNetwork/go-cayenne-lib.git", :revision => "b93f1e68bb8083a2b95c7149fe3b51fc595a717f"
   end
   go_resource "github.com/TheThingsNetwork/go-utils" do
-    url "https://github.com/TheThingsNetwork/go-utils.git", :revision => "7f35a9fdb4de6692822ef259a23d4964483f3a8c"
+    url "https://github.com/TheThingsNetwork/go-utils.git", :revision => "ed8e7e8c0d30b955a70828e65f414c83721e16c2"
   end
   go_resource "github.com/apex/log" do
     url "https://github.com/apex/log.git", :revision => "7259ed75bd8d8113a7ac9831ecb0558cac33ceed"
@@ -41,7 +44,7 @@ class Ttnctl < Formula
     url "https://github.com/bluele/gcache.git", :revision => "b9993a9fff7b10a1fd0404d8aa4a039cb625534d"
   end
   go_resource "github.com/brocaar/lorawan" do
-    url "https://github.com/brocaar/lorawan.git", :revision => "c61721fa96c85c25ea7ba635fc477224344ddbe3"
+    url "https://github.com/brocaar/lorawan.git", :revision => "aa09ef2fd7be6786b853675bb208c26ceeaf9bfd"
   end
   go_resource "github.com/dgrijalva/jwt-go" do
     url "https://github.com/dgrijalva/jwt-go.git", :revision => "6c8dedd55f8a2e41f605de6d5d66e51ed1f299fc"
@@ -158,7 +161,7 @@ class Ttnctl < Formula
     url "https://github.com/streadway/amqp.git", :revision => "6063341da5df18c5abcb1f62373016ab9858b7b0"
   end
   go_resource "github.com/tj/go-elastic" do
-    url "https://github.com/tj/go-elastic.git", :revision => "9a9a2a21e071e6e38f236740c3b650e7316ae67e"
+    url "https://github.com/tj/go-elastic.git", :revision => "4e3970d1a73193d3d4eb1791280cb8b5c26566f6"
   end
   go_resource "golang.org/x/crypto" do
     url "https://go.googlesource.com/crypto.git", :revision => "ab89591268e0c8b748cbe4047b00197516011af5"
@@ -182,7 +185,7 @@ class Ttnctl < Formula
     url "https://github.com/google/go-genproto.git", :revision => "411e09b969b1170a9f0c467558eb4c4c110d9c77"
   end
   go_resource "google.golang.org/grpc" do
-    url "https://github.com/grpc/grpc-go.git", :revision => "1c69e4cae0f5180ce7d8b472bf0a55d2654fe31b"
+    url "https://github.com/grpc/grpc-go.git", :revision => "41d9b6ea2a6335f3a22074ed35c0542c9da1baf4"
   end
   go_resource "gopkg.in/redis.v5" do
     url "https://gopkg.in/redis.v5.git", :revision => "a16aeec10ff407b1e7be6dd35797ccf5426ef0f0"
@@ -214,7 +217,7 @@ class Ttnctl < Formula
       ENV["PWD"] = buildpath/"src/github.com/TheThingsNetwork/ttn"              # govendor is easily confused
       system "bin/govendor", "sync"                                             # make sure the vendors are exactly as in vendor.json
 
-      ldflags = "-w -X main.version=v2.8.0 -X main.gitBranch= -X main.gitCommit=homebrew -X main.buildDate=#{Time.now.utc.strftime "%Y-%m-%dT%H:%M:%SZ"}"
+      ldflags = "-w -X main.version=v2.8.1 -X main.gitBranch= -X main.gitCommit=homebrew -X main.buildDate=#{Time.now.utc.strftime "%Y-%m-%dT%H:%M:%SZ"}"
       system "go", "build", "-a", "-installsuffix", "cgo", "-tags", "homebrew prod", "-ldflags", ldflags, "-o", "bin/ttnctl", "./ttnctl/main.go"
     end
 
